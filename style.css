@@ -1,0 +1,235 @@
+/* Base Styles & Thin Clean Font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600&display=swap');
+
+:root {
+    --dark: #0f1115;
+    --light: #ffffff;
+    --accent: #222222;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    /* Glass Emboss Effect Variables */
+    --glass-emboss: inset 1px 1px 3px rgba(255, 255, 255, 0.9), inset -1px -1px 3px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    background-image: url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: var(--dark);
+}
+
+h1, h2, h3 {
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+a { text-decoration: none; }
+
+/* Sharp Cut Buttons */
+.btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--dark);
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    border: 1px solid var(--dark);
+    border-radius: 0; /* Sharp corners */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 2px rgba(255,255,255,0.2); /* Slight button emboss */
+}
+
+.btn:hover {
+    background: rgba(15, 17, 21, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-light {
+    background: rgba(255,255,255,0.8);
+    color: var(--dark);
+    border: 1px solid var(--light);
+}
+
+.btn-light:hover { background: var(--light); }
+
+/* Horizontal Slab Layout & Acrylic Vibe */
+.slab {
+    padding: 100px 10vw;
+    position: relative;
+}
+
+.acrylic-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    padding: 60px;
+    border-radius: 0; /* Sharp corners */
+    box-shadow: var(--glass-emboss); /* 3D Glass edge effect */
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* Thermometer Section */
+.tracker-section { text-align: center; }
+
+.thermometer-wrap {
+    margin: 60px auto 40px;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+.thermometer-track {
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.5);
+    /* Inset shadow to make the track look carved out */
+    box-shadow: inset 2px 2px 6px rgba(0,0,0,0.1), inset -1px -1px 4px rgba(255,255,255,0.6);
+    position: relative;
+}
+
+.thermometer-fill {
+    height: 100%;
+    /* Black gradient */
+    background: linear-gradient(90deg, #444444 0%, #000000 100%);
+    width: 0%; /* Set via JS */
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Outset glass highlight for the fill bar */
+    box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4), inset -1px -1px 2px rgba(0,0,0,0.4);
+}
+
+/* Marker for £1000 Head Shave */
+.marker-1000 {
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    bottom: -30px;
+    border-left: 2px dashed var(--dark);
+    z-index: 10;
+}
+
+.marker-label {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 1px;
+}
+
+.goal-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* 3 Peaks Grid (Translucent Tiles) */
+.peaks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.peak-tile {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: var(--glass-emboss); /* Applies the 3D cut glass look */
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.peak-tile:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 1), inset -1px -1px 3px rgba(0, 0, 0, 0.1), 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.peak-tile h3 { font-size: 1.8rem; margin: 0 0 10px 0; }
+.peak-date {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid var(--dark);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,0.8);
+}
+
+/* Issac & MAF Section */
+.split-slab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.issac-img-container {
+    position: relative;
+    min-height: 400px;
+    background: url('https://i.postimg.cc/PJ5mKkjm/Issac2.png') no-repeat center bottom;
+    background-size: contain;
+    opacity: 0.9;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+    .split-slab { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+    .slab { padding: 60px 5vw; }
+}
