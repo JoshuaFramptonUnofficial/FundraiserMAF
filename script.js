@@ -1,29 +1,66 @@
-// ==========================================
-// EASY UPDATE: CHANGE THIS VARIABLE HERE
-// ==========================================
-const currentRaised = 60; 
+const currentRaised = 60;
 const goal = 2000;
-// ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Thermometer Animation
     const progressBar = document.getElementById("progress-bar");
-    
-    setTimeout(() => {
-        // Calculate percentage (caps at 100% so it doesn't break the UI if you exceed the goal)
-        const percentage = Math.min((currentRaised / goal) * 100, 100);
-        progressBar.style.width = percentage + "%";
-    }, 500);
+    const raisedAmount = document.getElementById("raised-amount");
+    const progressPercent = document.getElementById("progress-percent");
+    const tracker = document.getElementById("tracker-progress");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Clean Scroll Fade-In Observer
+    const percentage = Math.min((currentRaised / goal) * 100, 100);
+    const gbp = new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+        maximumFractionDigits: 0
+    });
+
+    tracker.setAttribute("aria-valuenow", currentRaised);
+
+    if (reducedMotion) {
+        progressBar.style.width = `${percentage}%`;
+        raisedAmount.textContent = gbp.format(currentRaised);
+        progressPercent.textContent = `${Math.round(percentage)}% funded`;
+        document.querySelectorAll(".fade-in").forEach((el) => el.classList.add("visible"));
+        return;
+    }
+
+    setTimeout(() => {
+        progressBar.style.width = `${percentage}%`;
+    }, 250);
+
+    animateValue(raisedAmount, 0, currentRaised, 1200, (value) => gbp.format(value));
+    animateValue(progressPercent, 0, Math.round(percentage), 1200, (value) => `${value}% funded`);
+
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px"
+    });
 
-    // Apply observer to all elements with the 'fade-in' class
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
 });
+
+function animateValue(element, start, end, duration, formatValue) {
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(start + (end - start) * eased);
+
+        element.textContent = formatValue(value);
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+
+    requestAnimationFrame(update);
+}
