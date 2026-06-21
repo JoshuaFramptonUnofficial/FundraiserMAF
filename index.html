@@ -1,188 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 Peaks in 3 Months | MAF UK Fundraiser</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
+<!-- GOAL -->
+<section class="slab goal-section" id="goal">
+    <div class="floating-meter-wrap" aria-label="Fundraising progress">
+        <div class="meter-top-label">£2,000</div>
 
-    <!-- HERO -->
-    <section class="hero slab" id="top">
-        <div class="acrylic-panel hero-panel fade-in">
-            <p class="eyebrow">MAF UK Fundraiser</p>
-
-            <h1 aria-label="3 Peaks in 3 Months">
-                <span>3 Peaks</span>
-                <span>3 Months</span>
-            </h1>
-
-            <div class="hero-subtitle">Taking on the UK's highest mountains for MAF UK</div>
-
-            <p>
-                Hi, I'm Joshua. This summer, I’m hiking the 3 UK Peaks to support MAF UK and pilot trainee Issac Lee.
-                My goal is to raise funds to help reach isolated communities cut off from the world, delivering
-                vital physical and spiritual aid, medical evacuations, and hope.
-            </p>
-
-            <div class="hero-actions">
-                <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
-                <a href="#mission" class="btn btn-light">Meet Issac</a>
-            </div>
-
-            <div class="hero-stats">
-                <article class="stat-card">
-                    <span class="stat-value">£2,000</span>
-                    <span class="stat-label">Overall goal</span>
-                </article>
-
-                <article class="stat-card">
-                    <span class="stat-value">£1,000</span>
-                    <span class="stat-label">Head shave challenge</span>
-                </article>
-
-                <article class="stat-card">
-                    <span class="stat-value">3 Peaks</span>
-                    <span class="stat-label">Across 3 months</span>
-                </article>
+        <div
+            class="vertical-meter"
+            id="tracker-progress"
+            role="progressbar"
+            aria-label="Fundraising progress"
+            aria-valuemin="0"
+            aria-valuemax="2000"
+            aria-valuenow="0"
+        >
+            <div class="vertical-meter-fill" id="progress-bar"></div>
+            <div class="progress-marker" id="progress-marker">
+                <span class="progress-badge" id="progress-badge">£0</span>
             </div>
         </div>
-    </section>
 
-    <main id="main-content">
-        <!-- GOAL -->
-        <section class="slab" id="goal">
-            <div class="acrylic-panel section-card tracker-layout fade-in">
-                <div class="tracker-copy">
-                    <p class="eyebrow">Fundraising progress</p>
-                    <h2>The Goal: £2,000</h2>
-                    <p>
-                        Every penny helps Issac stay on the field to deliver aid. Help us hit the £1,000 mark,
-                        and the highest donator will shave my head live.
-                    </p>
+        <div class="meter-bottom-label">£0</div>
+    </div>
 
-                    <div class="progress-summary">
-                        <div class="progress-summary-card">
-                            <span class="pill-label">Raised so far</span>
-                            <strong id="raised-amount">£0</strong>
-                            <span id="progress-percent" class="progress-note">0% of goal</span>
-                        </div>
-                    </div>
+    <div class="acrylic-panel section-card tracker-copy-card fade-in">
+        <div class="tracker-copy">
+            <p class="eyebrow">Fundraising progress</p>
+            <h2>The Goal: £2,000</h2>
+            <p>
+                Every penny helps Issac stay on the field to deliver aid. Help us hit the £1,000 mark,
+                and the highest donator will shave my head live.
+            </p>
 
-                    <div class="section-actions left-actions">
-                        <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate</a>
-                    </div>
-                </div>
-
-                <div class="vertical-meter-wrap" aria-label="Fundraising progress">
-                    <div class="meter-top-label">£2,000</div>
-
-                    <div
-                        class="vertical-meter"
-                        id="tracker-progress"
-                        role="progressbar"
-                        aria-label="Fundraising progress"
-                        aria-valuemin="0"
-                        aria-valuemax="2000"
-                        aria-valuenow="0"
-                    >
-                        <div class="vertical-meter-fill" id="progress-bar"></div>
-                        <div class="progress-marker" id="progress-marker">
-                            <span class="progress-badge" id="progress-badge">£0</span>
-                        </div>
-                    </div>
-
-                    <div class="meter-bottom-label">£0</div>
+            <div class="progress-summary">
+                <div class="progress-summary-card">
+                    <span class="pill-label">Raised so far</span>
+                    <strong id="raised-amount">£0</strong>
+                    <span id="progress-percent" class="progress-note">0% of goal</span>
                 </div>
             </div>
-        </section>
 
-        <!-- CHALLENGES -->
-        <section class="slab" id="challenges">
-            <div class="section-card fade-in">
-                <div class="section-title-block light-title">
-                    <p class="eyebrow eyebrow-light">The challenge</p>
-                    <h2>The 3 Peaks</h2>
-                    <p class="light-copy">
-                        Three separate hikes. One summer. One mission to raise support for MAF UK and Issac Lee.
-                    </p>
-                </div>
-
-                <div class="peaks-grid">
-                    <article class="peak-tile">
-                        <h3>Peak 1 - Snowdon</h3>
-                        <div class="peak-date">27 June</div>
-                        <p>22 km route with around 1,500 m of ascent.</p>
-                    </article>
-
-                    <article class="peak-tile">
-                        <h3>Peak 2 - Scafell Pike</h3>
-                        <div class="peak-date">July - TBD</div>
-                        <p>15 km route with around 850 m of ascent.</p>
-                    </article>
-
-                    <article class="peak-tile">
-                        <h3>Peak 3 - Ben Nevis</h3>
-                        <div class="peak-date">August - TBD</div>
-                        <p>18 km route with around 1,400 m of ascent.</p>
-                    </article>
-                </div>
+            <div class="section-actions left-actions">
+                <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate</a>
             </div>
-        </section>
-
-        <!-- ISSAC + MAF -->
-        <section class="slab" id="mission">
-            <div class="acrylic-panel mission-tile fade-in">
-                <div class="mission-image">
-                    <div class="issac-img-container" aria-hidden="true"></div>
-                </div>
-
-                <div class="mission-content">
-                    <p class="eyebrow">Issac Lee's mission</p>
-                    <h2>Issac Lee's Mission</h2>
-                    <p>
-                        All donations go specifically towards Issac’s mission out on the mission field.
-                        In areas where roads are non-existent, light aircraft provide the only way to reach them.
-                        Issac's training costs are covered by MAF, meaning your donations directly impacts
-                        lives. This allows Issac to deliver emergency food, clothing, and Bibles to those
-                        who are entirely cut off from the rest of the world.
-                    </p>
-
-                    <h2 class="subheading-spaced">Why Trust MAF?</h2>
-                    <p>
-                        Mission Aviation Fellowship (MAF) is the world's largest humanitarian air operator.
-                        For over 80 years, they have been flying light aircraft over jungles, mountains, swamps,
-                        and deserts to deliver help, hope, and healing in more than 25 countries, and they support
-                        over 1,500 aid, development, and mission organisations worldwide.
-                    </p>
-
-                    <div class="section-actions left-actions">
-                        <a href="https://www.maf-uk.org/get-involved/support-our-staff/issac-lee" target="_blank" rel="noopener noreferrer" class="btn btn-light">More about Issac</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER CTA -->
-        <section class="slab" id="donate">
-            <div class="acrylic-panel footer-panel fade-in">
-                <p class="eyebrow">Ready to support?</p>
-                <h2>Join the mission today</h2>
-                <p>
-                    Support the climbs, support Issac Lee, and help MAF UK reach communities that are hard
-                    to reach any other way.
-                </p>
-
-                <div class="hero-actions">
-                    <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
-                    <a href="#top" class="btn btn-light">Back to top</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        </div>
+    </div>
+</section>
