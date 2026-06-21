@@ -19,26 +19,18 @@
                 <span>3 Months</span>
             </h1>
 
-            <div class="hero-subtitle">Three mountains this summer to support Issac Lee and MAF UK</div>
+            <div class="hero-subtitle">Taking on the UK's highest mountains for MAF UK</div>
 
             <p>
-                Hi, I'm Joshua. This summer, I'm hiking the 3 UK Peaks to raise funds for MAF UK,
-                specifically in support of pilot trainee Issac Lee. The aim is to help reach isolated
-                communities with practical aid, medical support, and Christian hope.
+                Hi, I'm Joshua. This summer, I’m hiking the 3 UK Peaks to support MAF UK and pilot trainee Issac Lee.
+                My goal is to raise funds to help reach isolated communities cut off from the world, delivering
+                vital physical and spiritual aid, medical evacuations, and hope.
             </p>
 
             <div class="hero-actions">
                 <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
-                <a href="#mission" class="btn btn-light">Meet Issac sooner</a>
+                <a href="#mission" class="btn btn-light">Meet Issac</a>
             </div>
-
-            <nav class="section-jumps" aria-label="Jump to sections">
-                <a href="#goal" class="jump-link">The Goal</a>
-                <a href="#challenges" class="jump-link">The Challenge</a>
-                <a href="#mission" class="jump-link">Issac's Mission</a>
-                <a href="#why-maf" class="jump-link">Why MAF</a>
-                <a href="#donate" class="jump-link">Donate</a>
-            </nav>
 
             <div class="hero-stats">
                 <article class="stat-card">
@@ -59,46 +51,36 @@
         </div>
     </section>
 
-    <!-- STICKY QUICK NAV -->
-    <div class="quick-nav-shell">
-        <nav class="quick-nav" aria-label="Quick navigation">
-            <a href="#goal">Goal</a>
-            <a href="#challenges">Peaks</a>
-            <a href="#mission">Issac</a>
-            <a href="#why-maf">MAF</a>
-            <a href="#donate">Donate</a>
-        </nav>
-    </div>
-
     <main id="main-content">
         <!-- GOAL -->
         <section class="slab" id="goal">
-            <div class="acrylic-panel section-card tracker-section fade-in">
-                <p class="eyebrow">Fundraising progress</p>
-                <h2>The Goal: £2,000</h2>
-                <p>
-                    Every gift helps support Issac's mission journey with MAF UK. Hit £1,000 and the
-                    highest donor gets to choose when I shave my head live.
-                </p>
+            <div class="acrylic-panel section-card tracker-layout fade-in">
+                <div class="tracker-copy">
+                    <p class="eyebrow">Fundraising progress</p>
+                    <h2>The Goal: £2,000</h2>
+                    <p>
+                        Every penny helps Issac stay on the field to deliver aid. Help us hit the £1,000 mark,
+                        and the highest donator will shave my head live.
+                    </p>
 
-                <div class="amount-row">
-                    <div class="amount-pill">
-                        <span class="pill-label">Raised so far</span>
-                        <strong id="raised-amount">£0</strong>
+                    <div class="progress-summary">
+                        <div class="progress-summary-card">
+                            <span class="pill-label">Raised so far</span>
+                            <strong id="raised-amount">£0</strong>
+                            <span id="progress-percent" class="progress-note">0% of goal</span>
+                        </div>
                     </div>
 
-                    <div class="amount-pill">
-                        <span class="pill-label">Progress</span>
-                        <strong id="progress-percent">0% funded</strong>
+                    <div class="section-actions left-actions">
+                        <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate</a>
                     </div>
                 </div>
 
-                <div class="thermometer-wrap">
-                    <div class="marker-label">£1,000 - Head Shave</div>
-                    <div class="marker-1000"></div>
+                <div class="vertical-meter-wrap" aria-label="Fundraising progress">
+                    <div class="meter-top-label">£2,000</div>
 
                     <div
-                        class="thermometer-track"
+                        class="vertical-meter"
                         id="tracker-progress"
                         role="progressbar"
                         aria-label="Fundraising progress"
@@ -106,18 +88,13 @@
                         aria-valuemax="2000"
                         aria-valuenow="0"
                     >
-                        <div class="thermometer-fill" id="progress-bar"></div>
+                        <div class="vertical-meter-fill" id="progress-bar"></div>
+                        <div class="progress-marker" id="progress-marker">
+                            <span class="progress-badge" id="progress-badge">£0</span>
+                        </div>
                     </div>
 
-                    <div class="goal-label">
-                        <span>£0</span>
-                        <span>£2,000</span>
-                    </div>
-                </div>
-
-                <div class="section-actions">
-                    <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Push the Thermometer</a>
-                    <a href="#donate" class="btn btn-light">Jump to Donate</a>
+                    <div class="meter-bottom-label">£0</div>
                 </div>
             </div>
         </section>
@@ -129,8 +106,7 @@
                     <p class="eyebrow eyebrow-light">The challenge</p>
                     <h2>The 3 Peaks</h2>
                     <p class="light-copy">
-                        Three separate hikes. One summer. One mission to raise support for MAF UK and
-                        Issac Lee.
+                        Three separate hikes. One summer. One mission to raise support for MAF UK and Issac Lee.
                     </p>
                 </div>
 
@@ -156,88 +132,56 @@
             </div>
         </section>
 
-        <!-- ISSAC -->
+        <!-- ISSAC + MAF -->
         <section class="slab" id="mission">
-            <div class="story-grid section-card">
-                <div class="acrylic-panel story-panel fade-in">
-                    <p class="eyebrow">Who you are supporting</p>
-                    <h2>Meet Issac Lee</h2>
+            <div class="acrylic-panel mission-tile fade-in">
+                <div class="mission-image">
+                    <div class="issac-img-container" aria-hidden="true"></div>
+                </div>
+
+                <div class="mission-content">
+                    <p class="eyebrow">Issac Lee's mission</p>
+                    <h2>Issac Lee's Mission</h2>
                     <p>
-                        This fundraiser is specifically supporting MAF UK pilot trainee Issac Lee.
-                        His story is rooted in a desire to serve unreached communities and use aviation
-                        to help places that are difficult to reach by road.
+                        All donations go specifically towards Issac’s mission out on the mission field.
+                        In areas where roads are non-existent, light aircraft provide the only way to reach them.
+                        Issac's training costs are covered by MAF, meaning your donations directly impacts
+                        lives. This allows Issac to deliver emergency food, clothing, and Bibles to those
+                        who are entirely cut off from the rest of the world.
                     </p>
 
-                    <ul class="detail-list">
-                        <li>MAF UK pilot trainee.</li>
-                        <li>Support goes toward his mission journey and service preparation.</li>
-                        <li>Focused on reaching isolated communities with help and hope.</li>
-                    </ul>
+                    <h2 class="subheading-spaced">Why Trust MAF?</h2>
+                    <p>
+                        Mission Aviation Fellowship (MAF) is the world's largest humanitarian air operator.
+                        For over 80 years, they have been flying light aircraft over jungles, mountains, swamps,
+                        and deserts to deliver help, hope, and healing in more than 25 countries, and they support
+                        over 1,500 aid, development, and mission organisations worldwide.
+                    </p>
 
                     <div class="section-actions left-actions">
                         <a href="https://www.maf-uk.org/get-involved/support-our-staff/issac-lee" target="_blank" rel="noopener noreferrer" class="btn btn-light">More about Issac</a>
-                        <a href="#why-maf" class="btn btn-ghost">Why MAF matters</a>
                     </div>
-                </div>
-
-                <div class="acrylic-panel story-panel visual-panel fade-in">
-                    <div class="issac-img-container" aria-hidden="true"></div>
                 </div>
             </div>
         </section>
 
-        <!-- WHY MAF -->
-        <section class="slab" id="why-maf">
-            <div class="acrylic-panel section-card fade-in">
-                <p class="eyebrow">Why trust MAF</p>
-                <h2>Why MAF matters</h2>
+        <!-- FOOTER CTA -->
+        <section class="slab" id="donate">
+            <div class="acrylic-panel footer-panel fade-in">
+                <p class="eyebrow">Ready to support?</p>
+                <h2>Join the mission today</h2>
                 <p>
-                    MAF uses light aircraft to reach communities cut off by terrain, distance, and lack
-                    of infrastructure. That gives visitors a much quicker picture of where the money goes
-                    and why the fundraiser matters.
+                    Support the climbs, support Issac Lee, and help MAF UK reach communities that are hard
+                    to reach any other way.
                 </p>
 
-                <div class="info-grid">
-                    <article class="info-card">
-                        <h3>80+ Years</h3>
-                        <p>MAF has been serving remote communities for over 80 years.</p>
-                    </article>
-
-                    <article class="info-card">
-                        <h3>25+ Countries</h3>
-                        <p>Light aircraft are used across more than 25 countries.</p>
-                    </article>
-
-                    <article class="info-card">
-                        <h3>1,500 Organisations</h3>
-                        <p>MAF supports aid, development, and mission organisations by air.</p>
-                    </article>
-                </div>
-
-                <div class="section-actions">
-                    <a href="https://www.maf-uk.org/get-involved/support-our-staff/issac-lee" target="_blank" rel="noopener noreferrer" class="btn btn-light">Visit Issac's MAF page</a>
-                    <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate now</a>
+                <div class="hero-actions">
+                    <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
+                    <a href="#top" class="btn btn-light">Back to top</a>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- FOOTER CTA -->
-    <section class="slab" id="donate">
-        <div class="acrylic-panel footer-panel fade-in">
-            <p class="eyebrow">Ready to support?</p>
-            <h2>Join the mission today</h2>
-            <p>
-                Support the climbs, support Issac Lee, and help MAF UK reach communities that are hard
-                to reach any other way.
-            </p>
-
-            <div class="hero-actions">
-                <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
-                <a href="#top" class="btn btn-light">Back to top</a>
-            </div>
-        </div>
-    </section>
 
     <script src="script.js"></script>
 </body>
