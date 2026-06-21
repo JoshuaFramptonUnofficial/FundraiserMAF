@@ -300,8 +300,8 @@ strong {
     align-items: center;
     gap: 0.65rem;
     padding: 1rem 0.85rem;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.52);
+    background: rgba(255, 255, 255, 0.52);
+    border: 1px solid rgba(255, 255, 255, 0.32);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow:
@@ -343,11 +343,13 @@ strong {
 
 .progress-marker {
     position: absolute;
-    left: calc(100% + 12px);
+    left: auto;
+    right: calc(100% + 12px);
     bottom: 0;
     transform: translateY(50%);
     display: flex;
     align-items: center;
+    flex-direction: row-reverse;
 }
 
 .progress-marker::before {
@@ -355,7 +357,8 @@ strong {
     width: 16px;
     height: 2px;
     background: rgba(14, 18, 23, 0.55);
-    margin-right: 0.45rem;
+    margin-right: 0;
+    margin-left: 0.45rem;
 }
 
 .progress-badge {
