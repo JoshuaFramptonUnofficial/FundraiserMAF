@@ -1,78 +1,112 @@
-/* Base Styles & Thin Clean Font */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap');
 
 :root {
-    --dark: #0f1115;
+    --dark: #0e1217;
     --light: #ffffff;
-    --accent: #222222;
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.4);
-    /* Glass Emboss Effect Variables */
-    --glass-emboss: inset 1px 1px 3px rgba(255, 255, 255, 0.9), inset -1px -1px 3px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.05);
+    --accent: #151b22;
+    --accent-soft: rgba(21, 27, 34, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-bg-strong: rgba(255, 255, 255, 0.84);
+    --glass-border: rgba(255, 255, 255, 0.45);
+    --text-soft: rgba(255, 255, 255, 0.9);
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.12);
+    --max-width: 1120px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    background-image: url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
     color: var(--dark);
+    background: #0a0d11;
+    min-height: 100svh;
+    overflow-x: hidden;
+    position: relative;
 }
 
-h1, h2, h3 {
-    font-weight: 100;
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(rgba(14, 18, 23, 0.52), rgba(14, 18, 23, 0.24)),
+        url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1') center center / cover no-repeat;
+    transform: scale(1.03);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.02) 40%,
+        rgba(14, 18, 23, 0.32) 100%
+    );
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 1rem;
     text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-}
-
-p {
-    line-height: 1.8;
-    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    line-height: 1;
     font-weight: 300;
 }
 
-a { text-decoration: none; }
-
-/* Sharp Cut Buttons */
-.btn {
-    display: inline-block;
-    padding: 16px 40px;
-    background: var(--dark);
-    color: var(--light);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    border: 1px solid var(--dark);
-    border-radius: 0; /* Sharp corners */
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: inset 1px 1px 2px rgba(255,255,255,0.2); /* Slight button emboss */
+p {
+    margin: 0;
+    line-height: 1.75;
+    font-size: 1.05rem;
 }
 
-.btn:hover {
-    background: rgba(15, 17, 21, 0.8);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+strong {
+    font-weight: 600;
 }
 
-.btn-light {
-    background: rgba(255,255,255,0.8);
-    color: var(--dark);
-    border: 1px solid var(--light);
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.85rem 1rem;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 999px;
 }
 
-.btn-light:hover { background: var(--light); }
+.skip-link:focus {
+    top: 1rem;
+}
 
-/* Horizontal Slab Layout & Acrylic Vibe */
 .slab {
-    padding: 100px 10vw;
+    padding: clamp(3.75rem, 8vw, 6.5rem) 5vw;
     position: relative;
+}
+
+.section-card,
+.hero-panel,
+.footer-panel {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
 }
 
 .acrylic-panel {
@@ -80,147 +114,399 @@ a { text-decoration: none; }
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
-    padding: 60px;
-    border-radius: 0; /* Sharp corners */
-    box-shadow: var(--glass-emboss); /* 3D Glass edge effect */
+    box-shadow: var(--shadow);
+    padding: clamp(1.5rem, 3vw, 3.5rem);
 }
 
-/* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
+.eyebrow {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(14, 18, 23, 0.72);
+}
+
+.eyebrow-light {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding-top: clamp(2rem, 6vw, 5rem);
+    padding-bottom: clamp(2rem, 6vw, 4rem);
+}
+
+.hero-panel {
     text-align: center;
 }
 
 .hero h1 {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    font-weight: 300;
+    font-size: clamp(2.9rem, 8vw, 6.2rem);
+    letter-spacing: 0.16em;
+    line-height: 0.9;
+    margin-bottom: 1rem;
+}
+
+.hero h1 span {
+    display: block;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
-    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 1.4rem;
 }
 
-/* Thermometer Section */
-.tracker-section { text-align: center; }
+.hero p {
+    max-width: 68ch;
+    margin-inline: auto;
+}
+
+.hero-actions,
+.section-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.left-actions {
+    justify-content: flex-start;
+}
+
+.btn,
+.jump-link,
+.quick-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.95rem 1.35rem;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn {
+    background: var(--accent);
+    color: var(--light);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn:hover,
+.jump-link:hover,
+.quick-nav a:hover {
+    transform: translateY(-2px);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--dark);
+    border-color: rgba(14, 18, 23, 0.12);
+}
+
+.btn-light:hover {
+    background: #ffffff;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--dark);
+    border-color: rgba(14, 18, 23, 0.2);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.section-jumps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 1.35rem;
+}
+
+.jump-link {
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--light);
+    border-color: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    padding: 1rem;
+    color: var(--light);
+    text-align: left;
+    box-shadow: var(--shadow-soft);
+}
+
+.stat-value {
+    display: block;
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.88;
+    line-height: 1.4;
+}
+
+.quick-nav-shell {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    padding: 0 5vw 1rem;
+    margin-top: -1rem;
+}
+
+.quick-nav {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 0.9rem;
+    background: var(--glass-bg-strong);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-soft);
+}
+
+.quick-nav a {
+    background: rgba(21, 27, 34, 0.06);
+    color: var(--dark);
+    border-color: rgba(21, 27, 34, 0.08);
+}
+
+.tracker-section {
+    text-align: center;
+}
+
+.amount-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.6rem;
+}
+
+.amount-pill {
+    min-width: 220px;
+    padding: 1rem 1.15rem;
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(14, 18, 23, 0.08);
+    box-shadow: var(--shadow-soft);
+}
+
+.pill-label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    color: rgba(14, 18, 23, 0.65);
+}
 
 .thermometer-wrap {
-    margin: 60px auto 40px;
+    margin: 2.6rem auto 1rem;
     width: 100%;
-    max-width: 800px;
+    max-width: 860px;
     position: relative;
 }
 
 .thermometer-track {
-    height: 40px;
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.5);
-    /* Inset shadow to make the track look carved out */
-    box-shadow: inset 2px 2px 6px rgba(0,0,0,0.1), inset -1px -1px 4px rgba(255,255,255,0.6);
+    height: 24px;
+    background: rgba(14, 18, 23, 0.08);
+    border: 1px solid rgba(14, 18, 23, 0.12);
     position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .thermometer-fill {
     height: 100%;
-    /* Black gradient */
-    background: linear-gradient(90deg, #444444 0%, #000000 100%);
-    width: 0%; /* Set via JS */
-    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Outset glass highlight for the fill bar */
-    box-shadow: inset 1px 1px 2px rgba(255,255,255,0.4), inset -1px -1px 2px rgba(0,0,0,0.4);
+    width: 0;
+    background: linear-gradient(90deg, #303843 0%, #080a0d 100%);
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 
-/* Marker for £1000 Head Shave */
 .marker-1000 {
     position: absolute;
     left: 50%;
-    top: -30px;
-    bottom: -30px;
-    border-left: 2px dashed var(--dark);
-    z-index: 10;
+    top: -18px;
+    height: 58px;
+    border-left: 2px dashed rgba(14, 18, 23, 0.6);
+    z-index: 2;
 }
 
 .marker-label {
     position: absolute;
-    top: -45px;
+    top: -42px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
+    letter-spacing: 0.08em;
     white-space: nowrap;
-    letter-spacing: 1px;
 }
 
 .goal-label {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-    font-size: 1rem;
+    margin-top: 0.8rem;
     font-weight: 600;
 }
 
-/* 3 Peaks Grid (Translucent Tiles) */
+.section-title-block {
+    max-width: 760px;
+    margin-bottom: 2rem;
+}
+
+.light-title h2,
+.light-copy {
+    color: var(--light);
+}
+
 .peaks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
 }
 
 .peak-tile {
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 40px 20px;
-    text-align: center;
-    border-radius: 0;
-    box-shadow: var(--glass-emboss); /* Applies the 3D cut glass look */
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.52);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.75rem 1.25rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .peak-tile:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 1), inset -1px -1px 3px rgba(0, 0, 0, 0.1), 0 15px 35px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.68);
 }
 
-.peak-tile h3 { font-size: 1.8rem; margin: 0 0 10px 0; }
+.peak-tile h3 {
+    font-size: 1.45rem;
+    line-height: 1.15;
+    margin-bottom: 0.9rem;
+}
+
 .peak-date {
-    display: inline-block;
-    padding: 5px 15px;
-    border: 1px solid var(--dark);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    box-shadow: inset 1px 1px 1px rgba(255,255,255,0.8);
+    display: inline-flex;
+    padding: 0.45rem 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(14, 18, 23, 0.18);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.45);
 }
 
-/* Issac & MAF Section */
-.split-slab {
+.story-grid {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1rem;
+}
+
+.story-panel {
+    height: 100%;
+}
+
+.visual-panel {
+    display: flex;
+    align-items: stretch;
 }
 
 .issac-img-container {
-    position: relative;
-    min-height: 400px;
-    background: url('https://i.postimg.cc/PJ5mKkjm/Issac2.png') no-repeat center bottom;
-    background-size: contain;
-    opacity: 0.9;
+    width: 100%;
+    min-height: 460px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0)),
+        url('https://i.postimg.cc/PJ5mKkjm/Issac2.png') no-repeat center bottom / contain;
 }
 
-/* Animations */
+.detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.6rem 0 0;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.detail-list li {
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.48);
+    border-left: 3px solid rgba(14, 18, 23, 0.18);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.52);
+    border: 1px solid rgba(14, 18, 23, 0.08);
+    padding: 1.35rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.info-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-panel {
+    text-align: center;
+    max-width: 860px;
+}
+
 .fade-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .fade-in.visible {
@@ -228,8 +514,109 @@ a { text-decoration: none; }
     transform: translateY(0);
 }
 
-@media (max-width: 900px) {
-    .split-slab { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.5rem; }
-    .slab { padding: 60px 5vw; }
+@media (max-width: 980px) {
+    .peaks-grid,
+    .info-grid,
+    .story-grid,
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .issac-img-container {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 760px) {
+    .slab {
+        padding: 3.25rem 1rem;
+    }
+
+    .hero {
+        min-height: 100svh;
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.45rem, 13vw, 4rem);
+        letter-spacing: 0.1em;
+    }
+
+    .hero-subtitle {
+        font-size: 0.96rem;
+        letter-spacing: 0.1em;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    .hero-actions,
+    .section-actions,
+    .section-jumps {
+        flex-direction: column;
+    }
+
+    .btn,
+    .jump-link {
+        width: 100%;
+    }
+
+    .quick-nav {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .quick-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .quick-nav a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .marker-label {
+        font-size: 0.72rem;
+        top: -38px;
+    }
+
+    .amount-pill {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .marker-label {
+        width: 140px;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.3;
+    }
+
+    .peak-tile h3 {
+        font-size: 1.2rem;
+    }
+
+    .hero-panel,
+    .acrylic-panel {
+        padding: 1.35rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .fade-in,
+    .btn,
+    .jump-link,
+    .quick-nav a,
+    .peak-tile {
+        transition: none;
+    }
 }
