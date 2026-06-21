@@ -40,6 +40,7 @@ body::before {
         linear-gradient(rgba(14, 18, 23, 0.52), rgba(14, 18, 23, 0.24)),
         url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1') center center / cover no-repeat;
     transform: scale(1.03);
+    will-change: transform;
 }
 
 body::after {
@@ -53,6 +54,7 @@ body::after {
         rgba(255, 255, 255, 0.02) 40%,
         rgba(14, 18, 23, 0.32) 100%
     );
+    pointer-events: none;
 }
 
 a {
@@ -222,10 +224,10 @@ strong {
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.26);
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.32);
     padding: 1rem;
-    color: var(--light);
+    color: #000000;
     text-align: left;
     box-shadow: var(--shadow-soft);
 }
@@ -244,16 +246,11 @@ strong {
     font-size: 0.86rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    opacity: 0.88;
+    opacity: 0.82;
     line-height: 1.4;
+    color: #000000;
 }
 
-.tracker-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 150px;
-    gap: 2rem;
-    align-items: center;
-}
 
 .progress-summary {
     margin-top: 1.6rem;
@@ -451,16 +448,104 @@ strong {
     transform: translateY(0);
 }
 
+.goal-section {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
+    position: relative;
+    padding-top: clamp(5rem, 10vw, 7rem);
+}
+
+.tracker-copy-card {
+    width: 100%;
+}
+
+.floating-meter-wrap {
+    position: absolute;
+    top: 0;
+    right: clamp(1rem, 4vw, 2.5rem);
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 1rem 0.85rem;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.22),
+        0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.meter-top-label,
+.meter-bottom-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--dark);
+}
+
+.vertical-meter {
+    position: relative;
+    width: 34px;
+    height: 320px;
+    border-radius: 999px;
+    background: rgba(14, 18, 23, 0.08);
+    border: 1px solid rgba(14, 18, 23, 0.12);
+    overflow: visible;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.vertical-meter-fill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #444444 0%, #000000 100%);
+    transition: height 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+.progress-marker {
+    position: absolute;
+    left: calc(100% + 12px);
+    bottom: 0;
+    transform: translateY(50%);
+    display: flex;
+    align-items: center;
+}
+
+.progress-marker::before {
+    content: "";
+    width: 16px;
+    height: 2px;
+    background: rgba(14, 18, 23, 0.55);
+    margin-right: 0.45rem;
+}
+
+.progress-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0.35rem 0.7rem;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(14, 18, 23, 0.12);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    color: var(--dark);
+}
+
 @media (max-width: 980px) {
     .hero-stats,
     .peaks-grid,
-    .mission-tile,
-    .tracker-layout {
+    .mission-tile {
         grid-template-columns: 1fr;
-    }
-
-    .vertical-meter-wrap {
-        margin-top: 1rem;
     }
 
     .mission-image {
@@ -469,6 +554,18 @@ strong {
 
     .issac-img-container {
         min-height: 360px;
+    }
+
+    .goal-section {
+        padding-top: 4rem;
+    }
+
+    .floating-meter-wrap {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 0 auto 1.5rem;
+        width: fit-content;
     }
 }
 
@@ -510,6 +607,13 @@ strong {
         width: 100%;
     }
 
+    .floating-meter-wrap {
+        padding: 0.9rem 0.75rem;
+        box-shadow:
+            0 12px 28px rgba(0, 0, 0, 0.2),
+            0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
     .vertical-meter {
         height: 260px;
     }
@@ -534,7 +638,7 @@ strong {
         font-size: 1.2rem;
     }
 
-    .vertical-meter-wrap {
+    .floating-meter-wrap {
         align-items: flex-start;
     }
 
@@ -548,15 +652,18 @@ strong {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+    body::before,
+    body::after {
+        position: absolute;
+        inset: 0;
+        min-height: 100%;
     }
 
-    .fade-in,
-    .btn,
-    .peak-tile,
-    .vertical-meter-fill {
-        transition: none;
+    body::before {
+        transform: none;
+        background:
+            linear-gradient(rgba(14, 18, 23, 0.5), rgba(14, 18, 23, 0.26)),
+            url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1') center top / cover no-repeat;
     }
 }
