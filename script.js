@@ -1,4 +1,4 @@
-const currentRaised = 60;
+const currentRaised = 50;
 const goal = 2000;
 
 document.addEventListener("DOMContentLoaded", () => {
