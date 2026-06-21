@@ -39,8 +39,6 @@ body::before {
     background:
         linear-gradient(rgba(14, 18, 23, 0.52), rgba(14, 18, 23, 0.24)),
         url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1') center center / cover no-repeat;
-    transform: scale(1.03);
-    will-change: transform;
 }
 
 body::after {
@@ -251,6 +249,15 @@ strong {
     color: #000000;
 }
 
+.goal-section {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
+    position: relative;
+}
+
+.tracker-copy-card {
+    width: 100%;
+}
 
 .progress-summary {
     margin-top: 1.6rem;
@@ -282,11 +289,25 @@ strong {
     letter-spacing: 0.08em;
 }
 
-.vertical-meter-wrap {
+.floating-meter-wrap {
+    position: fixed;
+    top: 50%;
+    right: clamp(0.75rem, 2.2vw, 1.5rem);
+    transform: translateY(-50%);
+    z-index: 90;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.65rem;
+    padding: 1rem 0.85rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.22),
+        0 8px 18px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
 }
 
 .meter-top-label,
@@ -294,6 +315,7 @@ strong {
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 0.08em;
+    color: var(--dark);
 }
 
 .vertical-meter {
@@ -341,13 +363,14 @@ strong {
     align-items: center;
     min-height: 34px;
     padding: 0.35rem 0.7rem;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     border: 1px solid rgba(14, 18, 23, 0.12);
     box-shadow: var(--shadow-soft);
     font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     white-space: nowrap;
+    color: var(--dark);
 }
 
 .section-title-block {
@@ -448,99 +471,6 @@ strong {
     transform: translateY(0);
 }
 
-.goal-section {
-    width: min(100%, var(--max-width));
-    margin: 0 auto;
-    position: relative;
-    padding-top: clamp(5rem, 10vw, 7rem);
-}
-
-.tracker-copy-card {
-    width: 100%;
-}
-
-.floating-meter-wrap {
-    position: absolute;
-    top: 0;
-    right: clamp(1rem, 4vw, 2.5rem);
-    z-index: 25;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 1rem 0.85rem;
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.52);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow:
-        0 14px 40px rgba(0, 0, 0, 0.22),
-        0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.meter-top-label,
-.meter-bottom-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--dark);
-}
-
-.vertical-meter {
-    position: relative;
-    width: 34px;
-    height: 320px;
-    border-radius: 999px;
-    background: rgba(14, 18, 23, 0.08);
-    border: 1px solid rgba(14, 18, 23, 0.12);
-    overflow: visible;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.vertical-meter-fill {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 0%;
-    border-radius: 999px;
-    background: linear-gradient(180deg, #444444 0%, #000000 100%);
-    transition: height 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25);
-}
-
-.progress-marker {
-    position: absolute;
-    left: calc(100% + 12px);
-    bottom: 0;
-    transform: translateY(50%);
-    display: flex;
-    align-items: center;
-}
-
-.progress-marker::before {
-    content: "";
-    width: 16px;
-    height: 2px;
-    background: rgba(14, 18, 23, 0.55);
-    margin-right: 0.45rem;
-}
-
-.progress-badge {
-    display: inline-flex;
-    align-items: center;
-    min-height: 34px;
-    padding: 0.35rem 0.7rem;
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(14, 18, 23, 0.12);
-    box-shadow: var(--shadow-soft);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    color: var(--dark);
-}
-
 @media (max-width: 980px) {
     .hero-stats,
     .peaks-grid,
@@ -554,18 +484,6 @@ strong {
 
     .issac-img-container {
         min-height: 360px;
-    }
-
-    .goal-section {
-        padding-top: 4rem;
-    }
-
-    .floating-meter-wrap {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin: 0 auto 1.5rem;
-        width: fit-content;
     }
 }
 
@@ -608,23 +526,28 @@ strong {
     }
 
     .floating-meter-wrap {
-        padding: 0.9rem 0.75rem;
-        box-shadow:
-            0 12px 28px rgba(0, 0, 0, 0.2),
-            0 4px 12px rgba(0, 0, 0, 0.12);
+        right: 0.5rem;
+        padding: 0.8rem 0.65rem;
     }
 
     .vertical-meter {
-        height: 260px;
+        height: 250px;
     }
 
     .progress-marker {
-        left: calc(100% + 10px);
+        left: auto;
+        right: calc(100% + 10px);
+        flex-direction: row-reverse;
+    }
+
+    .progress-marker::before {
+        margin-right: 0;
+        margin-left: 0.45rem;
     }
 
     .progress-badge {
-        font-size: 0.76rem;
-        padding: 0.3rem 0.55rem;
+        font-size: 0.74rem;
+        padding: 0.28rem 0.5rem;
     }
 }
 
@@ -639,31 +562,36 @@ strong {
     }
 
     .floating-meter-wrap {
-        align-items: flex-start;
+        top: auto;
+        bottom: 1rem;
+        right: 0.5rem;
+        transform: none;
     }
 
     .vertical-meter {
-        width: 28px;
-        height: 230px;
+        width: 26px;
+        height: 190px;
+    }
+
+    .meter-top-label,
+    .meter-bottom-label {
+        font-size: 0.74rem;
     }
 
     .progress-marker::before {
-        width: 12px;
+        width: 10px;
     }
 }
 
-@media (max-width: 900px), (hover: none) and (pointer: coarse) {
-    body::before,
-    body::after {
-        position: absolute;
-        inset: 0;
-        min-height: 100%;
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
-    body::before {
-        transform: none;
-        background:
-            linear-gradient(rgba(14, 18, 23, 0.5), rgba(14, 18, 23, 0.26)),
-            url('https://i0.wp.com/www.mountain-walks.co.uk/wp-content/uploads/2018/01/Snowdon-2.jpg?fit=990%2C719&ssl=1') center top / cover no-repeat;
+    .fade-in,
+    .btn,
+    .peak-tile,
+    .vertical-meter-fill {
+        transition: none;
     }
 }

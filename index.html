@@ -9,6 +9,27 @@
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
+    <div class="floating-meter-wrap" aria-label="Fundraising progress">
+        <div class="meter-top-label">£2,000</div>
+
+        <div
+            class="vertical-meter"
+            id="tracker-progress"
+            role="progressbar"
+            aria-label="Fundraising progress"
+            aria-valuemin="0"
+            aria-valuemax="2000"
+            aria-valuenow="0"
+        >
+            <div class="vertical-meter-fill" id="progress-bar"></div>
+            <div class="progress-marker" id="progress-marker">
+                <span class="progress-badge" id="progress-badge">£0</span>
+            </div>
+        </div>
+
+        <div class="meter-bottom-label">£0</div>
+    </div>
+
     <!-- HERO -->
     <section class="hero slab" id="top">
         <div class="acrylic-panel hero-panel fade-in">
@@ -52,53 +73,31 @@
     </section>
 
     <main id="main-content">
-	
         <!-- GOAL -->
-<section class="slab goal-section" id="goal">
-    <div class="floating-meter-wrap" aria-label="Fundraising progress">
-        <div class="meter-top-label">£2,000</div>
+        <section class="slab goal-section" id="goal">
+            <div class="acrylic-panel section-card tracker-copy-card fade-in">
+                <div class="tracker-copy">
+                    <p class="eyebrow">Fundraising progress</p>
+                    <h2>The Goal: £2,000</h2>
+                    <p>
+                        Every penny helps Issac stay on the field to deliver aid. Help us hit the £1,000 mark,
+                        and the highest donator will shave my head live.
+                    </p>
 
-        <div
-            class="vertical-meter"
-            id="tracker-progress"
-            role="progressbar"
-            aria-label="Fundraising progress"
-            aria-valuemin="0"
-            aria-valuemax="2000"
-            aria-valuenow="0"
-        >
-            <div class="vertical-meter-fill" id="progress-bar"></div>
-            <div class="progress-marker" id="progress-marker">
-                <span class="progress-badge" id="progress-badge">£0</span>
-            </div>
-        </div>
+                    <div class="progress-summary">
+                        <div class="progress-summary-card">
+                            <span class="pill-label">Raised so far</span>
+                            <strong id="raised-amount">£0</strong>
+                            <span id="progress-percent" class="progress-note">0% of goal</span>
+                        </div>
+                    </div>
 
-        <div class="meter-bottom-label">£0</div>
-    </div>
-
-    <div class="acrylic-panel section-card tracker-copy-card fade-in">
-        <div class="tracker-copy">
-            <p class="eyebrow">Fundraising progress</p>
-            <h2>The Goal: £2,000</h2>
-            <p>
-                Every penny helps Issac stay on the field to deliver aid. Help us hit the £1,000 mark,
-                and the highest donator will shave my head live.
-            </p>
-
-            <div class="progress-summary">
-                <div class="progress-summary-card">
-                    <span class="pill-label">Raised so far</span>
-                    <strong id="raised-amount">£0</strong>
-                    <span id="progress-percent" class="progress-note">0% of goal</span>
+                    <div class="section-actions left-actions">
+                        <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate</a>
+                    </div>
                 </div>
             </div>
-
-            <div class="section-actions left-actions">
-                <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate</a>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- CHALLENGES -->
         <section class="slab" id="challenges">
