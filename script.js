@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const raisedAmount = document.getElementById("raised-amount");
     const progressPercent = document.getElementById("progress-percent");
     const tracker = document.getElementById("tracker-progress");
+    const progressMarker = document.getElementById("progress-marker");
+    const progressBadge = document.getElementById("progress-badge");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const percentage = Math.min((currentRaised / goal) * 100, 100);
@@ -17,20 +19,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tracker.setAttribute("aria-valuenow", currentRaised);
 
+    const updateMarkerPosition = (percent) => {
+        progressMarker.style.bottom = `${percent}%`;
+
+        if (percent > 72) {
+            progressMarker.style.transform = "translateY(110%)";
+        } else {
+            progressMarker.style.transform = "translateY(50%)";
+        }
+    };
+
     if (reducedMotion) {
-        progressBar.style.width = `${percentage}%`;
+        progressBar.style.height = `${percentage}%`;
         raisedAmount.textContent = gbp.format(currentRaised);
-        progressPercent.textContent = `${Math.round(percentage)}% funded`;
+        progressBadge.textContent = gbp.format(currentRaised);
+        progressPercent.textContent = `${Math.round(percentage)}% of goal`;
+        updateMarkerPosition(percentage);
         document.querySelectorAll(".fade-in").forEach((el) => el.classList.add("visible"));
         return;
     }
 
     setTimeout(() => {
-        progressBar.style.width = `${percentage}%`;
+        progressBar.style.height = `${percentage}%`;
+        updateMarkerPosition(percentage);
     }, 250);
 
     animateValue(raisedAmount, 0, currentRaised, 1200, (value) => gbp.format(value));
-    animateValue(progressPercent, 0, Math.round(percentage), 1200, (value) => `${value}% funded`);
+    animateValue(progressBadge, 0, currentRaised, 1200, (value) => gbp.format(value));
+    animateValue(progressPercent, 0, Math.round(percentage), 1200, (value) => `${value}% of goal`);
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
