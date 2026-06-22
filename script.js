@@ -59,6 +59,36 @@ document.addEventListener("DOMContentLoaded", () => {
         threshold: 0.15,
         rootMargin: "0px 0px -40px 0px"
     });
+	    const videoModal = document.getElementById("video-modal");
+    const openVideoModal = document.getElementById("open-video-modal");
+    const closeVideoModal = document.getElementById("close-video-modal");
+    const videoModalBackdrop = document.getElementById("video-modal-backdrop");
+    const videoFrame = document.getElementById("video-frame");
+    const videoEmbedUrl = "https://www.youtube.com/embed/nyoPz9B5pNw?autoplay=1&rel=0";
+
+    const openModal = () => {
+        videoModal.classList.add("is-open");
+        videoModal.setAttribute("aria-hidden", "false");
+        videoFrame.src = videoEmbedUrl;
+        document.body.style.overflow = "hidden";
+    };
+
+    const closeModal = () => {
+        videoModal.classList.remove("is-open");
+        videoModal.setAttribute("aria-hidden", "true");
+        videoFrame.src = "";
+        document.body.style.overflow = "";
+    };
+
+    openVideoModal.addEventListener("click", openModal);
+    closeVideoModal.addEventListener("click", closeModal);
+    videoModalBackdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && videoModal.classList.contains("is-open")) {
+            closeModal();
+        }
+    });
 
     document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
 });

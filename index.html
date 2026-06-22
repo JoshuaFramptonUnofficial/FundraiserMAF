@@ -49,9 +49,10 @@
             </p>
 
             <div class="hero-actions">
-                <a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
-                <a href="#mission" class="btn btn-light">Meet Issac</a>
-            </div>
+				<button type="button" class="btn btn-light" id="open-video-modal">Watch video</button>
+				<a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
+				<a href="#mission" class="btn btn-light">Meet Issac</a>
+			</div>
 
             <div class="hero-stats">
                 <article class="stat-card">
@@ -183,6 +184,30 @@
         </section>
     </main>
 
+	<div class="video-modal" id="video-modal" aria-hidden="true">
+    <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+
+    <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+        <button type="button" class="video-close" id="close-video-modal" aria-label="Close video popup">
+            <span aria-hidden="true">←</span>
+        </button>
+
+        <p class="video-modal-title" id="video-modal-title">Challenge video</p>
+
+        <div class="video-frame-wrap">
+            <iframe
+                id="video-frame"
+                src=""
+                title="3 Peaks in 3 Months video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</div>
+	
     <script src="script.js"></script>
 </body>
 </html>
