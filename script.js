@@ -5,27 +5,29 @@ const currentRaised = 60;
 const goal = 2000;
 
 // ==========================================
-// EASY UPDATE: HIKE VIDEO LINKS
-// Leave blank "" to grey the button out.
+// EASY UPDATE: ALL VIDEOS, OLDEST TO NEWEST
+// Leave url blank "" to disable that hike button.
 // ==========================================
-const hikeVideos = {
-    snowdon: "https://youtube.com/shorts/6Gty9ftO-uo",
-    scafell: "",
-    bennevis: ""
-};
-
-// ==========================================
-// EASY UPDATE: VIDEO GALLERY
-// Newest first. Leave blank urls out.
-// ==========================================
-const galleryVideos = [
+const videos = [
     {
+        key: "intro",
+        title: "Challenge Intro",
+        url: "https://www.youtube.com/shorts/nyoPz9B5pNw"
+    },
+    {
+        key: "snowdon",
         title: "Snowdon",
         url: "https://youtube.com/shorts/6Gty9ftO-uo"
     },
     {
-        title: "Challenge Intro",
-        url: "https://www.youtube.com/shorts/nyoPz9B5pNw"
+        key: "scafell",
+        title: "Scafell Pike",
+        url: ""
+    },
+    {
+        key: "bennevis",
+        title: "Ben Nevis",
+        url: ""
     }
 ];
 
@@ -93,31 +95,89 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
     }
 
+    const validVideos = videos.filter((video) => video.url && video.url.trim() !== "");
+    const openVideoGallery = document.getElementById("open-video-gallery");
     const videoModal = document.getElementById("video-modal");
     const closeVideoModal = document.getElementById("close-video-modal");
     const videoModalBackdrop = document.getElementById("video-modal-backdrop");
     const videoFrame = document.getElementById("video-frame");
     const videoModalTitle = document.getElementById("video-modal-title");
+    const videoModalPrev = document.getElementById("video-modal-prev");
+    const videoModalNext = document.getElementById("video-modal-next");
 
-    const openModal = (url, title = "Hike video") => {
-        if (!videoModal || !videoFrame) return;
+    let currentVideoIndex = 0;
+
+    const renderModalVideo = () => {
+        if (!validVideos.length || !videoFrame) return;
+
+        const currentVideo = validVideos[currentVideoIndex];
+        videoFrame.src = toEmbedUrl(currentVideo.url, true);
+
+        if (videoModalTitle) {
+            videoModalTitle.textContent = currentVideo.title;
+        }
+
+        if (videoModalPrev) {
+            videoModalPrev.disabled = currentVideoIndex === 0;
+        }
+
+        if (videoModalNext) {
+            videoModalNext.disabled = currentVideoIndex === validVideos.length - 1;
+        }
+    };
+
+    const openModalAtIndex = (index) => {
+        if (!validVideos.length || !videoModal) return;
+
+        currentVideoIndex = Math.max(0, Math.min(index, validVideos.length - 1));
         videoModal.classList.add("is-open");
         videoModal.setAttribute("aria-hidden", "false");
-        videoFrame.src = toEmbedUrl(url, true);
-        if (videoModalTitle) videoModalTitle.textContent = title;
+        renderModalVideo();
         document.body.style.overflow = "hidden";
     };
 
     const closeModal = () => {
         if (!videoModal || !videoFrame) return;
+
         videoModal.classList.remove("is-open");
         videoModal.setAttribute("aria-hidden", "true");
         videoFrame.src = "";
         document.body.style.overflow = "";
     };
 
-    if (closeVideoModal) closeVideoModal.addEventListener("click", closeModal);
-    if (videoModalBackdrop) videoModalBackdrop.addEventListener("click", closeModal);
+    if (openVideoGallery) {
+        if (validVideos.length) {
+            openVideoGallery.addEventListener("click", () => openModalAtIndex(0));
+        } else {
+            openVideoGallery.disabled = true;
+        }
+    }
+
+    if (videoModalPrev) {
+        videoModalPrev.addEventListener("click", () => {
+            if (currentVideoIndex > 0) {
+                currentVideoIndex -= 1;
+                renderModalVideo();
+            }
+        });
+    }
+
+    if (videoModalNext) {
+        videoModalNext.addEventListener("click", () => {
+            if (currentVideoIndex < validVideos.length - 1) {
+                currentVideoIndex += 1;
+                renderModalVideo();
+            }
+        });
+    }
+
+    if (closeVideoModal) {
+        closeVideoModal.addEventListener("click", closeModal);
+    }
+
+    if (videoModalBackdrop) {
+        videoModalBackdrop.addEventListener("click", closeModal);
+    }
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && videoModal && videoModal.classList.contains("is-open")) {
@@ -127,70 +187,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".peak-watch-btn").forEach((button) => {
         const hikeKey = button.dataset.hike;
-        const url = hikeVideos[hikeKey];
+        const matchingIndex = validVideos.findIndex((video) => video.key === hikeKey);
 
-        if (!url) {
+        if (matchingIndex === -1) {
             button.disabled = true;
             button.classList.add("is-disabled");
             return;
         }
 
         button.addEventListener("click", () => {
-            const titleMap = {
-                snowdon: "Snowdon",
-                scafell: "Scafell Pike",
-                bennevis: "Ben Nevis"
-            };
-
-            openModal(url, `${titleMap[hikeKey] || "Hike"} video`);
+            openModalAtIndex(matchingIndex);
         });
     });
-
-    const validGalleryVideos = galleryVideos.filter((video) => video.url && video.url.trim() !== "");
-    const gallerySection = document.getElementById("videos");
-    const galleryFrame = document.getElementById("gallery-video-frame");
-    const galleryTitle = document.getElementById("gallery-video-title");
-    const galleryMeta = document.getElementById("gallery-video-meta");
-    const galleryPrev = document.getElementById("video-prev");
-    const galleryNext = document.getElementById("video-next");
-
-    let currentGalleryIndex = 0;
-
-    const renderGallery = () => {
-        if (!validGalleryVideos.length) {
-            if (gallerySection) gallerySection.style.display = "none";
-            return;
-        }
-
-        const currentVideo = validGalleryVideos[currentGalleryIndex];
-
-        if (galleryFrame) galleryFrame.src = toEmbedUrl(currentVideo.url, false);
-        if (galleryTitle) galleryTitle.textContent = currentVideo.title;
-        if (galleryMeta) galleryMeta.textContent = `${currentGalleryIndex + 1} of ${validGalleryVideos.length}`;
-
-        if (galleryPrev) galleryPrev.disabled = currentGalleryIndex === 0;
-        if (galleryNext) galleryNext.disabled = currentGalleryIndex === validGalleryVideos.length - 1;
-    };
-
-    if (galleryPrev) {
-        galleryPrev.addEventListener("click", () => {
-            if (currentGalleryIndex > 0) {
-                currentGalleryIndex -= 1;
-                renderGallery();
-            }
-        });
-    }
-
-    if (galleryNext) {
-        galleryNext.addEventListener("click", () => {
-            if (currentGalleryIndex < validGalleryVideos.length - 1) {
-                currentGalleryIndex += 1;
-                renderGallery();
-            }
-        });
-    }
-
-    renderGallery();
 });
 
 function animateValue(element, start, end, duration, formatValue) {

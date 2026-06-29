@@ -49,7 +49,7 @@
             </p>
 
             <div class="hero-actions">
-				<a href="#videos" class="btn btn-light">Videos</a>
+				<button type="button" class="btn btn-light" id="open-video-gallery">Videos</button>
 				<a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
 				<a href="#mission" class="btn btn-light">Meet Issac</a>
 			</div>
@@ -114,8 +114,8 @@
                 <div class="peaks-grid">
 					<article class="peak-tile">
 						<h3>Peak 1 - Snowdon</h3>
-						<div class="peak-date">27 June</div>
-						<p>22 km route with around 1,500 m of ascent.</p>
+						<div class="peak-date">27 June - COMPLETE</div>
+						<p>14 km route with around 900 m of ascent.</p>
 
 						<button type="button" class="peak-watch-btn" data-hike="snowdon">
 							<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -155,61 +155,32 @@
         </section>
 		
 		<div class="video-modal" id="video-modal" aria-hidden="true">
-    <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+			<div class="video-modal-backdrop" id="video-modal-backdrop"></div>
 
-    <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
-        <button type="button" class="video-close" id="close-video-modal" aria-label="Close video popup">
-            <span aria-hidden="true">←</span>
-        </button>
+			<div class="video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+				<button type="button" class="video-close" id="close-video-modal" aria-label="Close video popup">
+					<span aria-hidden="true">←</span>
+				</button>
 
-        <p class="video-modal-title" id="video-modal-title">Hike video</p>
+				<p class="video-modal-title" id="video-modal-title">Video</p>
 
-        <div class="video-frame-wrap">
-            <iframe
-                id="video-frame"
-                src=""
-                title="Hike video"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-            ></iframe>
-        </div>
-    </div>
-</div>
-		
-		<!-- VIDEOS -->
-<section class="slab" id="videos">
-    <div class="acrylic-panel video-gallery-panel fade-in">
-        <div class="section-title-block">
-            <p class="eyebrow">Videos</p>
-            <h2>Latest Updates</h2>
-            <p id="gallery-video-meta" class="video-gallery-meta">1 of 1</p>
-        </div>
+				<div class="video-frame-wrap video-modal-frame-wrap">
+					<button type="button" class="video-modal-nav video-modal-prev" id="video-modal-prev" aria-label="Previous video">←</button>
 
-        <div class="video-gallery-shell">
-            <button type="button" class="video-nav-btn" id="video-prev" aria-label="Previous video">←</button>
+					<iframe
+						id="video-frame"
+						src=""
+						title="Fundraiser video"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+					></iframe>
 
-            <div class="video-gallery-card">
-                <h3 id="gallery-video-title">Latest video</h3>
-
-                <div class="video-frame-wrap gallery-frame-wrap">
-                    <iframe
-                        id="gallery-video-frame"
-                        src=""
-                        title="Fundraiser video"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                    ></iframe>
-                </div>
-            </div>
-
-            <button type="button" class="video-nav-btn" id="video-next" aria-label="Next video">→</button>
-        </div>
-    </div>
-</section>
+					<button type="button" class="video-modal-nav video-modal-next" id="video-modal-next" aria-label="Next video">→</button>
+				</div>
+			</div>
+		</div>
 
         <!-- ISSAC + MAF -->
         <section class="slab" id="mission">
