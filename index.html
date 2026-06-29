@@ -49,7 +49,7 @@
             </p>
 
             <div class="hero-actions">
-				<button type="button" class="btn btn-light" id="open-video-modal">Watch video</button>
+				<a href="#videos" class="btn btn-light">Videos</a>
 				<a href="https://www.justgiving.com/page/3peaksin3months" target="_blank" rel="noopener noreferrer" class="btn">Donate via JustGiving</a>
 				<a href="#mission" class="btn btn-light">Meet Issac</a>
 			</div>
@@ -112,26 +112,104 @@
                 </div>
 
                 <div class="peaks-grid">
-                    <article class="peak-tile">
-                        <h3>Peak 1 - Snowdon</h3>
-                        <div class="peak-date">27 June</div>
-                        <p>22 km route with around 1,500 m of ascent.</p>
-                    </article>
+					<article class="peak-tile">
+						<h3>Peak 1 - Snowdon</h3>
+						<div class="peak-date">27 June</div>
+						<p>22 km route with around 1,500 m of ascent.</p>
 
-                    <article class="peak-tile">
-                        <h3>Peak 2 - Scafell Pike</h3>
-                        <div class="peak-date">July - TBD</div>
-                        <p>15 km route with around 850 m of ascent.</p>
-                    </article>
+						<button type="button" class="peak-watch-btn" data-hike="snowdon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+							</svg>
+							<span>Watch</span>
+						</button>
+					</article>
 
-                    <article class="peak-tile">
-                        <h3>Peak 3 - Ben Nevis</h3>
-                        <div class="peak-date">August - TBD</div>
-                        <p>18 km route with around 1,400 m of ascent.</p>
-                    </article>
-                </div>
+					<article class="peak-tile">
+						<h3>Peak 2 - Scafell Pike</h3>
+						<div class="peak-date">July - TBD</div>
+						<p>15 km route with around 850 m of ascent.</p>
+
+						<button type="button" class="peak-watch-btn" data-hike="scafell">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+							</svg>
+							<span>Watch</span>
+						</button>
+					</article>
+
+					<article class="peak-tile">
+						<h3>Peak 3 - Ben Nevis</h3>
+						<div class="peak-date">August - TBD</div>
+						<p>18 km route with around 1,400 m of ascent.</p>
+
+						<button type="button" class="peak-watch-btn" data-hike="bennevis">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M8 6.5v11l9-5.5-9-5.5Z"></path>
+							</svg>
+							<span>Watch</span>
+						</button>
+					</article>
+				</div>
             </div>
         </section>
+		
+		<div class="video-modal" id="video-modal" aria-hidden="true">
+    <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+
+    <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+        <button type="button" class="video-close" id="close-video-modal" aria-label="Close video popup">
+            <span aria-hidden="true">←</span>
+        </button>
+
+        <p class="video-modal-title" id="video-modal-title">Hike video</p>
+
+        <div class="video-frame-wrap">
+            <iframe
+                id="video-frame"
+                src=""
+                title="Hike video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</div>
+		
+		<!-- VIDEOS -->
+<section class="slab" id="videos">
+    <div class="acrylic-panel video-gallery-panel fade-in">
+        <div class="section-title-block">
+            <p class="eyebrow">Videos</p>
+            <h2>Latest Updates</h2>
+            <p id="gallery-video-meta" class="video-gallery-meta">1 of 1</p>
+        </div>
+
+        <div class="video-gallery-shell">
+            <button type="button" class="video-nav-btn" id="video-prev" aria-label="Previous video">←</button>
+
+            <div class="video-gallery-card">
+                <h3 id="gallery-video-title">Latest video</h3>
+
+                <div class="video-frame-wrap gallery-frame-wrap">
+                    <iframe
+                        id="gallery-video-frame"
+                        src=""
+                        title="Fundraiser video"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+
+            <button type="button" class="video-nav-btn" id="video-next" aria-label="Next video">→</button>
+        </div>
+    </div>
+</section>
 
         <!-- ISSAC + MAF -->
         <section class="slab" id="mission">

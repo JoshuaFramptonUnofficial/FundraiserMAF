@@ -586,6 +586,205 @@ strong {
     }
 }
 
+.peak-watch-btn {
+    margin-top: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0.8rem 1rem;
+    border: 1px solid transparent;
+    background: var(--accent);
+    color: var(--light);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.peak-watch-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.peak-watch-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex: 0 0 auto;
+}
+
+.peak-watch-btn:disabled,
+.peak-watch-btn.is-disabled {
+    background: rgba(14, 18, 23, 0.18);
+    color: rgba(14, 18, 23, 0.45);
+    border-color: rgba(14, 18, 23, 0.08);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.video-gallery-panel {
+    width: min(100%, var(--max-width));
+    margin: 0 auto;
+}
+
+.video-gallery-meta {
+    font-size: 0.9rem;
+    color: rgba(14, 18, 23, 0.68);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.video-gallery-shell {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+    gap: 1rem;
+    align-items: center;
+}
+
+.video-gallery-card {
+    text-align: center;
+}
+
+.video-gallery-card h3 {
+    margin-bottom: 1rem;
+}
+
+.gallery-frame-wrap {
+    width: min(100%, 360px);
+    margin: 0 auto;
+}
+
+.video-nav-btn {
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgba(14, 18, 23, 0.12);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--dark);
+    box-shadow: var(--shadow-soft);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.video-nav-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.video-nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.video-frame-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background: #000000;
+    overflow: hidden;
+}
+
+.video-frame-wrap iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+}
+
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.video-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 18, 23, 0.58);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.video-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(92vw, 420px);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.video-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.6rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--dark);
+    border: 1px solid rgba(14, 18, 23, 0.12);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.video-modal-title {
+    margin-bottom: 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(14, 18, 23, 0.72);
+}
+
+@media (max-width: 760px) {
+    .video-gallery-shell {
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        gap: 0.75rem;
+    }
+
+    .video-nav-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .video-gallery-panel {
+        padding: 1.35rem;
+    }
+
+    .gallery-frame-wrap {
+        width: min(100%, 300px);
+    }
+
+    .video-modal-dialog {
+        width: min(92vw, 360px);
+        padding: 0.85rem;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -681,3 +880,4 @@ strong {
         padding: 0.85rem;
     }
 }
+
