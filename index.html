@@ -8,27 +8,60 @@
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
+	
+	<div class="floating-fundraiser-tools">
+		<button
+			type="button"
+			class="notification-trigger"
+			id="notification-trigger"
+			aria-label="Open fundraiser notification"
+			aria-haspopup="dialog"
+			aria-expanded="false"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+				<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+			</svg>
 
-    <div class="floating-meter-wrap" aria-label="Fundraising progress">
-        <div class="meter-top-label">£2,000</div>
+			<span class="notification-dot" aria-hidden="true"></span>
+		</button>
 
-        <div
-            class="vertical-meter"
-            id="tracker-progress"
-            role="progressbar"
-            aria-label="Fundraising progress"
-            aria-valuemin="0"
-            aria-valuemax="2000"
-            aria-valuenow="0"
-        >
-            <div class="vertical-meter-fill" id="progress-bar"></div>
-            <div class="progress-marker" id="progress-marker">
-                <span class="progress-badge" id="progress-badge">£0</span>
-            </div>
-        </div>
+		<div class="floating-meter-wrap" aria-label="Fundraising progress">
+			<div class="meter-top-label">£2,000</div>
 
-        <div class="meter-bottom-label">£0</div>
-    </div>
+			<div
+				class="vertical-meter"
+				id="tracker-progress"
+				role="progressbar"
+				aria-label="Fundraising progress"
+				aria-valuemin="0"
+				aria-valuemax="2000"
+				aria-valuenow="0"
+			>
+				<div class="vertical-meter-fill" id="progress-bar"></div>
+				<div class="progress-marker" id="progress-marker">
+					<span class="progress-badge" id="progress-badge">£0</span>
+				</div>
+			</div>
+
+			<div class="meter-bottom-label">£0</div>
+		</div>
+	</div>
+	
+	<button
+		type="button"
+		class="notification-trigger"
+		id="notification-trigger"
+		aria-label="Open fundraiser notification"
+		aria-haspopup="dialog"
+		aria-expanded="false"
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+			<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+		</svg>
+		<span class="notification-dot" aria-hidden="true"></span>
+	</button>
+	
+    
 
     <!-- HERO -->
     <section class="hero slab" id="top">
@@ -127,7 +160,7 @@
 
 					<article class="peak-tile">
 						<h3>Peak 2 - Scafell Pike</h3>
-						<div class="peak-date">July - TBD</div>
+						<div class="peak-date">July - 25th</div>
 						<p>15 km route with around 850 m of ascent.</p>
 
 						<button type="button" class="peak-watch-btn" data-hike="scafell">
@@ -151,7 +184,7 @@
 						</button>
 					</article>
 				</div>
-				<article class="bonus-challenge-tile">
+				<article class="bonus-challenge-tile" id="bonus-challenge">
 					<div class="bonus-challenge-topline">
 						<span class="bonus-label">Bonus Challenge</span>
 						<span class="bonus-date">18 July</span>
@@ -172,12 +205,56 @@
 					</div>
 
 					<p class="bonus-footnote">
-						A bonus challenge alongside the three UK mountain hikes — more miles, more ascent,
-						and another opportunity to support Issac Lee and MAF UK.
+						A bonus challenge alongside the three main UK peaks to truly test my endurance.
 					</p>
 				</article>
             </div>
         </section>
+		
+		<div class="notification-modal" id="notification-modal" aria-hidden="true">
+			<div class="notification-modal-backdrop" id="notification-modal-backdrop"></div>
+
+			<div
+				class="notification-modal-dialog"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="notification-title"
+			>
+				<button
+					type="button"
+					class="notification-close"
+					id="close-notification-modal"
+					aria-label="Close notification"
+				>
+					<span aria-hidden="true">←</span>
+				</button>
+
+				<p class="notification-eyebrow">Fundraiser update</p>
+				<h2 id="notification-title">Next challenge</h2>
+				<p id="notification-message"></p>
+
+				<div class="countdown-grid" aria-label="Time until next challenge">
+					<div class="countdown-unit">
+						<strong id="countdown-days">00</strong>
+						<span>Days</span>
+					</div>
+
+					<div class="countdown-unit">
+						<strong id="countdown-hours">00</strong>
+						<span>Hours</span>
+					</div>
+
+					<div class="countdown-unit">
+						<strong id="countdown-minutes">00</strong>
+						<span>Minutes</span>
+					</div>
+				</div>
+
+				<p class="notification-date" id="notification-date"></p>
+				
+				<a href="#bonus-challenge" class="btn notification-scroll-btn" id="notification-scroll-btn">View bonus challenge</a>
+			</div>
+		</div>
 		
 		<div class="video-modal" id="video-modal" aria-hidden="true">
 			<div class="video-modal-backdrop" id="video-modal-backdrop"></div>

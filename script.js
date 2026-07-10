@@ -5,6 +5,24 @@ const currentRaised = 95;
 const goal = 2000;
 
 // ==========================================
+// EASY UPDATE: NEXT NOTIFICATION
+//
+// enabled: false = grey bell, no shaking, cannot open.
+// enabled: true = blue bell, unread dot, gentle shake.
+//
+// target: Use local UK time in YYYY-MM-DDTHH:MM format.
+// Update title, message, and target for each next hike.
+// ==========================================
+const fundraiserNotification = {
+    enabled: true,
+    title: "Bonus Yorkshire 3 Peaks",
+    message: "On 18 July, I’m taking on an extra challenge, the Yorkshire 3 Peaks: Pen-y-Ghent, Whernside, and Ingleborough.",
+    target: "2026-07-18T10:00",
+    dateLabel: "Saturday 18 July 2026"
+};
+
+
+// ==========================================
 // EASY UPDATE: ALL VIDEOS, OLDEST TO NEWEST
 // Leave url blank "" to disable that hike button.
 // ==========================================
@@ -203,6 +221,117 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             openModalAtIndex(matchingIndex);
         });
+    });
+	    const notificationTrigger = document.getElementById("notification-trigger");
+    const notificationModal = document.getElementById("notification-modal");
+    const notificationModalBackdrop = document.getElementById("notification-modal-backdrop");
+    const closeNotificationButton = document.getElementById("close-notification-modal");
+    const notificationTitle = document.getElementById("notification-title");
+    const notificationMessage = document.getElementById("notification-message");
+    const notificationDate = document.getElementById("notification-date");
+    const countdownDays = document.getElementById("countdown-days");
+    const countdownHours = document.getElementById("countdown-hours");
+    const countdownMinutes = document.getElementById("countdown-minutes");
+    let notificationTimer;
+	const notificationScrollButton = document.getElementById("notification-scroll-btn");
+
+    const formatCountdownNumber = (number) => String(number).padStart(2, "0");
+
+    const updateCountdown = () => {
+        if (!fundraiserNotification.enabled) return;
+
+        const now = new Date();
+        const target = new Date(fundraiserNotification.target);
+        const difference = target.getTime() - now.getTime();
+
+        if (difference <= 0) {
+            if (countdownDays) countdownDays.textContent = "00";
+            if (countdownHours) countdownHours.textContent = "00";
+            if (countdownMinutes) countdownMinutes.textContent = "00";
+            return;
+        }
+
+        const totalMinutes = Math.floor(difference / 60000);
+        const days = Math.floor(totalMinutes / 1440);
+        const hours = Math.floor((totalMinutes % 1440) / 60);
+        const minutes = totalMinutes % 60;
+
+        if (countdownDays) countdownDays.textContent = formatCountdownNumber(days);
+        if (countdownHours) countdownHours.textContent = formatCountdownNumber(hours);
+        if (countdownMinutes) countdownMinutes.textContent = formatCountdownNumber(minutes);
+    };
+
+    const openNotificationModal = () => {
+        if (!fundraiserNotification.enabled || !notificationModal) return;
+
+        notificationModal.classList.add("is-open");
+        notificationModal.setAttribute("aria-hidden", "false");
+        notificationTrigger.setAttribute("aria-expanded", "true");
+        notificationTrigger.classList.remove("is-unread");
+        document.body.style.overflow = "hidden";
+
+        updateCountdown();
+    };
+
+    const closeNotificationModal = () => {
+        if (!notificationModal) return;
+
+        notificationModal.classList.remove("is-open");
+        notificationModal.setAttribute("aria-hidden", "true");
+        notificationTrigger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+    };
+
+    if (notificationTrigger) {
+        if (fundraiserNotification.enabled) {
+            notificationTrigger.classList.add("has-notification", "is-unread");
+            notificationTrigger.disabled = false;
+
+            if (notificationTitle) {
+                notificationTitle.textContent = fundraiserNotification.title;
+            }
+
+            if (notificationMessage) {
+                notificationMessage.textContent = fundraiserNotification.message;
+            }
+
+            if (notificationDate) {
+                notificationDate.textContent = fundraiserNotification.dateLabel;
+            }
+
+            updateCountdown();
+            notificationTimer = window.setInterval(updateCountdown, 30000);
+
+            notificationTrigger.addEventListener("click", openNotificationModal);
+        } else {
+            notificationTrigger.classList.remove("has-notification", "is-unread");
+            notificationTrigger.disabled = true;
+            notificationTrigger.setAttribute("aria-label", "No fundraiser notifications");
+        }
+    }
+
+    if (closeNotificationButton) {
+    closeNotificationButton.addEventListener("click", closeNotificationModal);
+}
+
+    if (notificationModalBackdrop) {
+        notificationModalBackdrop.addEventListener("click", closeNotificationModal);
+    }
+	
+	if (notificationScrollButton) {
+    notificationScrollButton.addEventListener("click", () => {
+        closeNotificationModal();
+    });
+}
+
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            notificationModal &&
+            notificationModal.classList.contains("is-open")
+        ) {
+            closeNotificationModal();
+        }
     });
 });
 
