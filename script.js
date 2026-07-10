@@ -14,6 +14,11 @@ const videos = [
         title: "Challenge Intro",
         url: "https://www.youtube.com/shorts/nyoPz9B5pNw"
     },
+	{
+        key: "issac",
+        title: "Issac & MAF UK",
+        url: "https://www.youtube.com/watch?v=MApBRFexRIA"
+    },
     {
         key: "snowdon",
         title: "Snowdon",
@@ -185,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.querySelectorAll(".peak-watch-btn").forEach((button) => {
+    document.querySelectorAll(".peak-watch-btn, .issac-video-btn").forEach((button) => {
         const hikeKey = button.dataset.hike;
         const matchingIndex = validVideos.findIndex((video) => video.key === hikeKey);
 

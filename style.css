@@ -586,6 +586,17 @@ strong {
     }
 }
 
+.issac-video-btn {
+    gap: 0.55rem;
+}
+
+.issac-video-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex: 0 0 auto;
+}
+
 .peak-watch-btn {
     margin-top: 1.15rem;
     display: inline-flex;
@@ -927,6 +938,84 @@ strong {
     height: 100%;
     display: block;
     border: 0;
+}
+
+.bonus-challenge-tile {
+    width: min(100%, var(--max-width));
+    margin: 1rem auto 0;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--dark);
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.bonus-challenge-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.bonus-label,
+.bonus-date {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid rgba(14, 18, 23, 0.16);
+    background: rgba(255, 255, 255, 0.42);
+    color: var(--dark);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.bonus-challenge-tile h3 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 1rem;
+}
+
+.bonus-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.bonus-stats span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.46);
+    border: 1px solid rgba(14, 18, 23, 0.1);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.bonus-footnote {
+    max-width: 70ch;
+    color: rgba(14, 18, 23, 0.72);
+}
+
+@media (max-width: 760px) {
+    .bonus-challenge-topline {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .bonus-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 520px) {
