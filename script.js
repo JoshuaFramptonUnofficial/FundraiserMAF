@@ -1,38 +1,51 @@
-// ==========================================
-// EASY UPDATE: FUNDRAISER
-// ==========================================
+// =========================================================
+// EASY UPDATE: FUNDRAISER TOTAL
+// =========================================================
 const currentRaised = 95;
 const goal = 2000;
 
-// ==========================================
+// =========================================================
 // EASY UPDATE: NEXT NOTIFICATION
 //
-// enabled: false = grey bell, no shaking, cannot open.
-// enabled: true = blue bell, unread dot, gentle shake.
+// enabled: false
+// - Bell is grey
+// - Bell does not shake
+// - Bell cannot be opened
+//
+// enabled: true
+// - Bell is active
+// - Bell shakes gently until opened
+// - Countdown and popup are enabled
 //
 // target: Use local UK time in YYYY-MM-DDTHH:MM format.
-// Update title, message, and target for each next hike.
-// ==========================================
+// scrollTarget: The ID of the section the popup button opens.
+// =========================================================
 const fundraiserNotification = {
     enabled: true,
     title: "Bonus Yorkshire 3 Peaks",
-    message: "On 18 July, I’m taking on an extra challenge, the Yorkshire 3 Peaks: Pen-y-Ghent, Whernside, and Ingleborough.",
+    message: "On 18 July, I’m taking on an extra challenge: the Yorkshire 3 Peaks — Pen-y-Ghent, Whernside, and Ingleborough.",
     target: "2026-07-18T10:00",
-    dateLabel: "Saturday 18 July 2026"
+    dateLabel: "Saturday 18 July 2026",
+    buttonLabel: "View bonus challenge",
+    scrollTarget: "bonus-challenge"
 };
 
-
-// ==========================================
-// EASY UPDATE: ALL VIDEOS, OLDEST TO NEWEST
-// Leave url blank "" to disable that hike button.
-// ==========================================
+// =========================================================
+// EASY UPDATE: VIDEOS — OLDEST TO NEWEST
+//
+// Leave url as "" to:
+// - Disable that hike's Watch button
+// - Exclude it from the videos popup
+//
+// Keep the list in oldest-to-newest order.
+// =========================================================
 const videos = [
     {
         key: "intro",
         title: "Challenge Intro",
         url: "https://www.youtube.com/shorts/nyoPz9B5pNw"
     },
-	{
+    {
         key: "issac",
         title: "Issac & MAF UK",
         url: "https://www.youtube.com/watch?v=MApBRFexRIA"
@@ -55,6 +68,16 @@ const videos = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+    initialiseFundraisingProgress();
+    initialiseScrollAnimations();
+    initialiseVideoPopup();
+    initialiseNotificationPopup();
+});
+
+// =========================================================
+// FUNDRAISING PROGRESS
+// =========================================================
+function initialiseFundraisingProgress() {
     const progressBar = document.getElementById("progress-bar");
     const raisedAmount = document.getElementById("raised-amount");
     const progressPercent = document.getElementById("progress-percent");
@@ -64,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const percentage = Math.min((currentRaised / goal) * 100, 100);
+
     const gbp = new Intl.NumberFormat("en-GB", {
         style: "currency",
         currency: "GBP",
@@ -71,54 +95,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (tracker) {
-        tracker.setAttribute("aria-valuenow", currentRaised);
+        tracker.setAttribute("aria-valuenow", String(currentRaised));
     }
 
     const updateMarkerPosition = (percent) => {
         if (!progressMarker) return;
 
         progressMarker.style.bottom = `${percent}%`;
-
-        if (percent > 72) {
-            progressMarker.style.transform = "translateY(110%)";
-        } else {
-            progressMarker.style.transform = "translateY(50%)";
-        }
+        progressMarker.style.transform = percent > 72
+            ? "translateY(110%)"
+            : "translateY(50%)";
     };
 
-    if (reducedMotion) {
+    const renderFinalValues = () => {
         if (progressBar) progressBar.style.height = `${percentage}%`;
         if (raisedAmount) raisedAmount.textContent = gbp.format(currentRaised);
         if (progressBadge) progressBadge.textContent = gbp.format(currentRaised);
         if (progressPercent) progressPercent.textContent = `${Math.round(percentage)}% of goal`;
+
         updateMarkerPosition(percentage);
-        document.querySelectorAll(".fade-in").forEach((el) => el.classList.add("visible"));
-    } else {
-        setTimeout(() => {
-            if (progressBar) progressBar.style.height = `${percentage}%`;
-            updateMarkerPosition(percentage);
-        }, 250);
+    };
 
-        animateValue(raisedAmount, 0, currentRaised, 1200, (value) => gbp.format(value));
-        animateValue(progressBadge, 0, currentRaised, 1200, (value) => gbp.format(value));
-        animateValue(progressPercent, 0, Math.round(percentage), 1200, (value) => `${value}% of goal`);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15,
-            rootMargin: "0px 0px -40px 0px"
-        });
-
-        document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    if (reducedMotion) {
+        renderFinalValues();
+        return;
     }
 
+    window.setTimeout(() => {
+        if (progressBar) {
+            progressBar.style.height = `${percentage}%`;
+        }
+
+        updateMarkerPosition(percentage);
+    }, 250);
+
+    animateValue(raisedAmount, 0, currentRaised, 1200, (value) => gbp.format(value));
+    animateValue(progressBadge, 0, currentRaised, 1200, (value) => gbp.format(value));
+    animateValue(
+        progressPercent,
+        0,
+        Math.round(percentage),
+        1200,
+        (value) => `${value}% of goal`
+    );
+}
+
+// =========================================================
+// SCROLL FADE-IN ANIMATIONS
+// =========================================================
+function initialiseScrollAnimations() {
+    const fadeInElements = document.querySelectorAll(".fade-in");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+        fadeInElements.forEach((element) => element.classList.add("visible"));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.15,
+            rootMargin: "0px 0px -40px 0px"
+        }
+    );
+
+    fadeInElements.forEach((element) => observer.observe(element));
+}
+
+// =========================================================
+// VIDEO POPUP
+// =========================================================
+function initialiseVideoPopup() {
     const validVideos = videos.filter((video) => video.url && video.url.trim() !== "");
+
     const openVideoGallery = document.getElementById("open-video-gallery");
     const videoModal = document.getElementById("video-modal");
     const closeVideoModal = document.getElementById("close-video-modal");
@@ -130,10 +187,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentVideoIndex = 0;
 
-    const renderModalVideo = () => {
+    const renderVideo = () => {
         if (!validVideos.length || !videoFrame) return;
 
         const currentVideo = validVideos[currentVideoIndex];
+
         videoFrame.src = toEmbedUrl(currentVideo.url, true);
 
         if (videoModalTitle) {
@@ -149,91 +207,110 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const openModalAtIndex = (index) => {
+    const openVideoModal = (index) => {
         if (!validVideos.length || !videoModal) return;
 
         currentVideoIndex = Math.max(0, Math.min(index, validVideos.length - 1));
+
         videoModal.classList.add("is-open");
         videoModal.setAttribute("aria-hidden", "false");
-        renderModalVideo();
-        document.body.style.overflow = "hidden";
+
+        renderVideo();
+        setPageScrollLocked(true);
     };
 
-    const closeModal = () => {
-        if (!videoModal || !videoFrame) return;
+    const closeVideoPopup = () => {
+        if (!videoModal) return;
 
         videoModal.classList.remove("is-open");
         videoModal.setAttribute("aria-hidden", "true");
-        videoFrame.src = "";
-        document.body.style.overflow = "";
+
+        if (videoFrame) {
+            videoFrame.src = "";
+        }
+
+        setPageScrollLocked(false);
     };
 
     if (openVideoGallery) {
         if (validVideos.length) {
-            openVideoGallery.addEventListener("click", () => openModalAtIndex(0));
+            openVideoGallery.addEventListener("click", () => openVideoModal(0));
         } else {
             openVideoGallery.disabled = true;
+            openVideoGallery.setAttribute("aria-label", "No videos available yet");
         }
     }
 
     if (videoModalPrev) {
         videoModalPrev.addEventListener("click", () => {
-            if (currentVideoIndex > 0) {
-                currentVideoIndex -= 1;
-                renderModalVideo();
-            }
+            if (currentVideoIndex <= 0) return;
+
+            currentVideoIndex -= 1;
+            renderVideo();
         });
     }
 
     if (videoModalNext) {
         videoModalNext.addEventListener("click", () => {
-            if (currentVideoIndex < validVideos.length - 1) {
-                currentVideoIndex += 1;
-                renderModalVideo();
-            }
+            if (currentVideoIndex >= validVideos.length - 1) return;
+
+            currentVideoIndex += 1;
+            renderVideo();
         });
     }
 
     if (closeVideoModal) {
-        closeVideoModal.addEventListener("click", closeModal);
+        closeVideoModal.addEventListener("click", closeVideoPopup);
     }
 
     if (videoModalBackdrop) {
-        videoModalBackdrop.addEventListener("click", closeModal);
+        videoModalBackdrop.addEventListener("click", closeVideoPopup);
     }
 
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && videoModal && videoModal.classList.contains("is-open")) {
-            closeModal();
-        }
-    });
-
     document.querySelectorAll(".peak-watch-btn, .issac-video-btn").forEach((button) => {
-        const hikeKey = button.dataset.hike;
-        const matchingIndex = validVideos.findIndex((video) => video.key === hikeKey);
+        const videoKey = button.dataset.hike;
+        const matchingIndex = validVideos.findIndex((video) => video.key === videoKey);
 
         if (matchingIndex === -1) {
             button.disabled = true;
             button.classList.add("is-disabled");
+            button.setAttribute("aria-disabled", "true");
             return;
         }
 
-        button.addEventListener("click", () => {
-            openModalAtIndex(matchingIndex);
-        });
+        button.addEventListener("click", () => openVideoModal(matchingIndex));
     });
-	    const notificationTrigger = document.getElementById("notification-trigger");
+
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            videoModal &&
+            videoModal.classList.contains("is-open")
+        ) {
+            closeVideoPopup();
+        }
+    });
+}
+
+// =========================================================
+// NOTIFICATION POPUP AND COUNTDOWN
+// =========================================================
+function initialiseNotificationPopup() {
+    const notificationTrigger = document.getElementById("notification-trigger");
     const notificationModal = document.getElementById("notification-modal");
     const notificationModalBackdrop = document.getElementById("notification-modal-backdrop");
     const closeNotificationButton = document.getElementById("close-notification-modal");
+
     const notificationTitle = document.getElementById("notification-title");
     const notificationMessage = document.getElementById("notification-message");
     const notificationDate = document.getElementById("notification-date");
+    const notificationScrollButton = document.getElementById("notification-scroll-btn");
+
     const countdownDays = document.getElementById("countdown-days");
     const countdownHours = document.getElementById("countdown-hours");
     const countdownMinutes = document.getElementById("countdown-minutes");
-    let notificationTimer;
-	const notificationScrollButton = document.getElementById("notification-scroll-btn");
+
+    if (!notificationTrigger) return;
 
     const formatCountdownNumber = (number) => String(number).padStart(2, "0");
 
@@ -242,16 +319,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const now = new Date();
         const target = new Date(fundraiserNotification.target);
-        const difference = target.getTime() - now.getTime();
+        const millisecondsRemaining = target.getTime() - now.getTime();
 
-        if (difference <= 0) {
+        if (Number.isNaN(target.getTime()) || millisecondsRemaining <= 0) {
             if (countdownDays) countdownDays.textContent = "00";
             if (countdownHours) countdownHours.textContent = "00";
             if (countdownMinutes) countdownMinutes.textContent = "00";
             return;
         }
 
-        const totalMinutes = Math.floor(difference / 60000);
+        const totalMinutes = Math.floor(millisecondsRemaining / 60000);
         const days = Math.floor(totalMinutes / 1440);
         const hours = Math.floor((totalMinutes % 1440) / 60);
         const minutes = totalMinutes % 60;
@@ -261,68 +338,85 @@ document.addEventListener("DOMContentLoaded", () => {
         if (countdownMinutes) countdownMinutes.textContent = formatCountdownNumber(minutes);
     };
 
-    const openNotificationModal = () => {
-        if (!fundraiserNotification.enabled || !notificationModal) return;
-
-        notificationModal.classList.add("is-open");
-        notificationModal.setAttribute("aria-hidden", "false");
-        notificationTrigger.setAttribute("aria-expanded", "true");
-        notificationTrigger.classList.remove("is-unread");
-        document.body.style.overflow = "hidden";
-
-        updateCountdown();
-    };
-
-    const closeNotificationModal = () => {
+    const closeNotificationPopup = () => {
         if (!notificationModal) return;
 
         notificationModal.classList.remove("is-open");
         notificationModal.setAttribute("aria-hidden", "true");
         notificationTrigger.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+
+        setPageScrollLocked(false);
     };
 
-    if (notificationTrigger) {
-        if (fundraiserNotification.enabled) {
-            notificationTrigger.classList.add("has-notification", "is-unread");
-            notificationTrigger.disabled = false;
+    const openNotificationPopup = () => {
+        if (!fundraiserNotification.enabled || !notificationModal) return;
 
-            if (notificationTitle) {
-                notificationTitle.textContent = fundraiserNotification.title;
-            }
+        notificationModal.classList.add("is-open");
+        notificationModal.setAttribute("aria-hidden", "false");
 
-            if (notificationMessage) {
-                notificationMessage.textContent = fundraiserNotification.message;
-            }
+        notificationTrigger.setAttribute("aria-expanded", "true");
+        notificationTrigger.classList.remove("is-unread");
 
-            if (notificationDate) {
-                notificationDate.textContent = fundraiserNotification.dateLabel;
-            }
+        updateCountdown();
+        setPageScrollLocked(true);
+    };
 
-            updateCountdown();
-            notificationTimer = window.setInterval(updateCountdown, 30000);
+    if (!fundraiserNotification.enabled) {
+        notificationTrigger.classList.remove("has-notification", "is-unread");
+        notificationTrigger.disabled = true;
+        notificationTrigger.setAttribute("aria-label", "No fundraiser notifications");
 
-            notificationTrigger.addEventListener("click", openNotificationModal);
-        } else {
-            notificationTrigger.classList.remove("has-notification", "is-unread");
-            notificationTrigger.disabled = true;
-            notificationTrigger.setAttribute("aria-label", "No fundraiser notifications");
-        }
+        return;
     }
+
+    notificationTrigger.classList.add("has-notification", "is-unread");
+    notificationTrigger.disabled = false;
+
+    if (notificationTitle) {
+        notificationTitle.textContent = fundraiserNotification.title;
+    }
+
+    if (notificationMessage) {
+        notificationMessage.textContent = fundraiserNotification.message;
+    }
+
+    if (notificationDate) {
+        notificationDate.textContent = fundraiserNotification.dateLabel;
+    }
+
+    if (notificationScrollButton) {
+        notificationScrollButton.textContent = fundraiserNotification.buttonLabel;
+
+        notificationScrollButton.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const destination = document.getElementById(fundraiserNotification.scrollTarget);
+
+            closeNotificationPopup();
+
+            if (destination) {
+                window.setTimeout(() => {
+                    destination.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 100);
+            }
+        });
+    }
+
+    notificationTrigger.addEventListener("click", openNotificationPopup);
 
     if (closeNotificationButton) {
-    closeNotificationButton.addEventListener("click", closeNotificationModal);
-}
+        closeNotificationButton.addEventListener("click", closeNotificationPopup);
+    }
 
     if (notificationModalBackdrop) {
-        notificationModalBackdrop.addEventListener("click", closeNotificationModal);
+        notificationModalBackdrop.addEventListener("click", closeNotificationPopup);
     }
-	
-	if (notificationScrollButton) {
-    notificationScrollButton.addEventListener("click", () => {
-        closeNotificationModal();
-    });
-}
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 30000);
 
     document.addEventListener("keydown", (event) => {
         if (
@@ -330,11 +424,14 @@ document.addEventListener("DOMContentLoaded", () => {
             notificationModal &&
             notificationModal.classList.contains("is-open")
         ) {
-            closeNotificationModal();
+            closeNotificationPopup();
         }
     });
-});
+}
 
+// =========================================================
+// SHARED HELPERS
+// =========================================================
 function animateValue(element, start, end, duration, formatValue) {
     if (!element) return;
 
@@ -342,8 +439,8 @@ function animateValue(element, start, end, duration, formatValue) {
 
     function update(currentTime) {
         const progress = Math.min((currentTime - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const value = Math.round(start + (end - start) * eased);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(start + (end - start) * easedProgress);
 
         element.textContent = formatValue(value);
 
@@ -355,8 +452,13 @@ function animateValue(element, start, end, duration, formatValue) {
     requestAnimationFrame(update);
 }
 
+function setPageScrollLocked(isLocked) {
+    document.body.style.overflow = isLocked ? "hidden" : "";
+}
+
 function toEmbedUrl(url, autoplay = false) {
     const cleanUrl = (url || "").trim();
+
     if (!cleanUrl) return "";
 
     const shortsMatch = cleanUrl.match(/youtube\.com\/shorts\/([^?&/]+)/i);
@@ -371,6 +473,9 @@ function toEmbedUrl(url, autoplay = false) {
         (shortLinkMatch && shortLinkMatch[1]) ||
         cleanUrl;
 
-    const params = autoplay ? "?autoplay=1&rel=0" : "?rel=0";
-    return `https://www.youtube.com/embed/${videoId}${params}`;
+    const parameters = autoplay
+        ? "?autoplay=1&rel=0"
+        : "?rel=0";
+
+    return `https://www.youtube.com/embed/${videoId}${parameters}`;
 }
