@@ -23,9 +23,9 @@ const goal = 2000;
 const fundraiserNotification = {
     enabled: true,
     title: "Bonus Yorkshire 3 Peaks",
-    message: "On the 25th July, I’m taking on an extra challenge: the Yorkshire 3 Peaks — Pen-y-Ghent, Whernside, and Ingleborough.",
-    target: "2026-07-25T10:00",
-    dateLabel: "Saturday 25th July 2026",
+    message: "On the 1st August, I’m taking on an extra challenge: the Yorkshire 3 Peaks — Pen-y-Ghent, Whernside, and Ingleborough.",
+    target: "2026-08-01T10:00",
+    dateLabel: "Saturday 1st August 2026",
     buttonLabel: "View bonus challenge",
     scrollTarget: "bonus-challenge"
 };
