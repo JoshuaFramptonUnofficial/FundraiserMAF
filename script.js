@@ -58,7 +58,7 @@ const videos = [
     {
         key: "scafell",
         title: "Scafell Pike",
-        url: ""
+        url: "https://www.youtube.com/shorts/jDoSZVH7xQU"
     },
     {
         key: "bennevis",
