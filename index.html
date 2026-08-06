@@ -13,16 +13,13 @@
 
     <!-- =========================================================
          FIXED FUNDRAISING TOOLS
-         Notification bell: left side
-         Donation thermometer: right side
          ========================================================= -->
 
-    <!-- Notification button: controlled by fundraiserNotification in script.js -->
     <button
         type="button"
         class="notification-trigger"
         id="notification-trigger"
-        aria-label="Open fundraiser notification"
+        aria-label="Open final hike notification"
         aria-haspopup="dialog"
         aria-expanded="false"
     >
@@ -33,7 +30,6 @@
         <span class="notification-dot" aria-hidden="true"></span>
     </button>
 
-    <!-- Floating donation thermometer -->
     <aside class="floating-meter-wrap" aria-label="Fundraising progress">
         <div class="meter-top-label">£2,000</div>
 
@@ -197,9 +193,10 @@
                         </button>
                     </article>
 
-                    <article class="peak-tile">
+                    <!-- Final hike: notification popup scrolls here -->
+                    <article class="peak-tile final-hike-tile" id="ben-nevis">
                         <h3>Peak 3 - Ben Nevis</h3>
-                        <div class="peak-date">August - TBD</div>
+                        <div class="peak-date">15 August</div>
                         <p>18 km route with around 1,400 m of ascent.</p>
 
                         <button type="button" class="peak-watch-btn" data-hike="bennevis">
@@ -211,29 +208,33 @@
                     </article>
                 </div>
 
-                <!-- Bonus challenge: notification popup scrolls here -->
-                <article class="bonus-challenge-tile" id="bonus-challenge">
+                <!-- Completed bonus challenge -->
+                <article
+                    class="bonus-challenge-tile is-complete"
+                    id="bonus-challenge"
+                    aria-label="Yorkshire 3 Peaks bonus challenge complete"
+                >
                     <div class="bonus-challenge-topline">
-                        <span class="bonus-label">Bonus Challenge</span>
-                        <span class="bonus-date">1 August</span>
+                        <span class="bonus-label">Bonus Challenge - Complete</span>
+                        <span class="bonus-date">1 August - Complete</span>
                     </div>
 
                     <h3>Yorkshire 3 Peaks</h3>
 
                     <p>
-                        An extra one-day challenge through the Yorkshire Dales:
-                        Pen-y-Ghent, Whernside, and Ingleborough.
+                        Completed: an extra one-day challenge through the Yorkshire Dales,
+                        taking on Pen-y-Ghent, Whernside, and Ingleborough.
                     </p>
 
-                    <div class="bonus-stats" aria-label="Yorkshire Three Peaks challenge details">
+                    <div class="bonus-stats" aria-label="Completed Yorkshire Three Peaks challenge details">
                         <span>24 miles</span>
                         <span>1,585 m ascent</span>
                         <span>3 peaks</span>
-                        <span>12-hour target</span>
+                        <span>Completed</span>
                     </div>
 
                     <p class="bonus-footnote">
-                        The cherry on top.
+                        Completed — the cherry on top of this summer’s fundraising challenges.
                     </p>
                 </article>
             </div>
@@ -343,13 +344,15 @@
                 <span aria-hidden="true">←</span>
             </button>
 
-            <p class="notification-eyebrow">Fundraiser update</p>
+            <p class="notification-eyebrow">Final hike countdown</p>
 
-            <h2 id="notification-title">Next challenge</h2>
+            <h2 id="notification-title">Final Hike: Ben Nevis</h2>
 
-            <p id="notification-message"></p>
+            <p id="notification-message">
+                On 15 August, I’ll take on the final hike of the fundraiser: Ben Nevis.
+            </p>
 
-            <div class="countdown-grid" aria-label="Time until next challenge">
+            <div class="countdown-grid" aria-label="Time until final hike">
                 <div class="countdown-unit">
                     <strong id="countdown-days">00</strong>
                     <span>Days</span>
@@ -366,14 +369,16 @@
                 </div>
             </div>
 
-            <p class="notification-date" id="notification-date"></p>
+            <p class="notification-date" id="notification-date">
+                Saturday 15 August 2026 · 11:00 am
+            </p>
 
             <a
-                href="#bonus-challenge"
+                href="#ben-nevis"
                 class="btn notification-scroll-btn"
                 id="notification-scroll-btn"
             >
-                View bonus challenge
+                View final hike
             </a>
         </div>
     </div>
